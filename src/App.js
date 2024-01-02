@@ -1,6 +1,3 @@
-
-
-
 import { useState } from "react";
 
 export default function App() {
@@ -12,55 +9,54 @@ export default function App() {
 
 }
 
+
 function Counter() {
 
-  let [step, setStep] = useState(1);
-  let [count, setCount] = useState(0);
+  const [range, setRange] = useState(1);
+  const [count, setCount] = useState(0);
 
-  function stepDown() {
-    setStep((s) => s - 1)
-  }
-  function stepUp() {
-    setStep((s) => s + 1)
-  }
-
-  function countDown() {
-    setCount((c) => c - step)
-  }
-  function countUp() {
-    setCount((c) => c + step)
-  }
-
-
-  let newCount = count * step;
-  // console.log(newCount)
-  // console.log(count)
-  // console.log(step)
-  let time = new Date()
-
-  let date = time.toDateString();
-
+  const date = new Date();
+  date.setDate(date.getDate() + count);
 
   return (
-    <>
-      <button onClick={stepDown} >- </button>
-      step:<span>{step} </span>
-      <button onClick={stepUp} >+</button> <br /> <br />
+    <div>
+      <div>
+        <input
+          type="range"
+          min="0"
+          max="10"
+          value={range}
+          onChange={(e) => setRange(Number(e.target.value))}
+        />
+        &nbsp;
 
-      <button onClick={countDown}>-</button>
-      count:<span>{count} </span>
-      <button onClick={countUp}>+</button><br /> <br />
+        <span>step:{range} </span>
+      </div>
+      <br />
+      <br />
+      <div>
+        <button onClick={() => setCount((c) => c - range)}>-</button>
 
+        <input
+          type="text"
+          value={count}
+          onChange={(e) => setCount(Number(e.target.value))} /> &nbsp;
+
+        <button onClick={() => setCount((c) => c + range)}>+</button><br /> <br />
+      </div>
 
       <h2>
+
         <span>{count === 0
           ? "Today is "
           : count > 0
             ? `${count} days from today is `
             : `${Math.abs(count)} days ago was `}</span>
-        <span>{date}</span>
+        <span>{date.toDateString()}</span>
+
       </h2>
-    </>
+
+    </div>
   )
 
 }
