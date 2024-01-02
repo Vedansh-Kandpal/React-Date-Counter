@@ -15,6 +15,11 @@ function Counter() {
   const [range, setRange] = useState(1);
   const [count, setCount] = useState(0);
 
+  function handleReset() {
+    setCount(0);
+    setRange(0)
+  }
+
   const date = new Date();
   date.setDate(date.getDate() + count);
 
@@ -55,6 +60,9 @@ function Counter() {
         <span>{date.toDateString()}</span>
 
       </h2>
+      {count !== 0 || range !== 1 ? <div>
+        <button onClick={handleReset}>Reset</button>
+      </div> : null}
 
     </div>
   )
